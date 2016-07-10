@@ -34,6 +34,9 @@ def readHTML(url):
     return soup
 
 #Finds first product on a page and returns its price
+#class_ - refers to class of div with price
+#tag - refers to tag with price inside div above
+#soup - refers to BS4 object
 def itemPrice(class_, tag, soup):
     product= soup.find(class_=class_)
     priceTag = product.find(tag, {"itemprop" : "price"}).attrs

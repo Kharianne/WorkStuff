@@ -13,10 +13,20 @@ def urlParser():
     values = vars(args)
     url = (values['url'])
     if url is None:
-        print ("URL argument missing")
+        print("URL argument missing")
         exit()
     else:
         return url
+def urlParserVouchers():
+    parser = argparse.ArgumentParser(description="Fill in attributes for vouchers")
+    parser.add_argument('--proc', action="store", type=float, default=33)
+    parser.add_argument('--fix', action="store", type=float, default=150)
+    parser.add_argument('--kred', action="store", type=float, default=99)
+    parser.add_argument('--brand', action="store", type=str, default=False)
+    parser.add_argument('--cat', action="store", type=str, default=False)
+    args = parser.parse_args()
+    values = vars(args)
+    return values
 
 #Parse url into domain and cz/sk
 def whereAmI(url):
@@ -24,7 +34,7 @@ def whereAmI(url):
         domainLanguage = re.findall('^https?://(?:www)\.(.+)\.(.+)', url)
         return domainLanguage
     except:
-        print ("URL neni v pozadovanem formatu!")
+        print("URL neni v pozadovanem formatu!")
         exit()
 
 #Returns BS4 object to work with
@@ -39,6 +49,8 @@ def readHTML(url):
 #soup - refers to BS4 object
 def itemPrice(class_, tag, soup):
     product= soup.find(class_=class_)
-    priceTag = product.find(tag, {"itemprop" : "price"}).attrs
+    priceTag = product.find(tag, {"itemprop": "price"}).attrs
     price = float(priceTag['content'])
     return price
+
+print(urlParserVouchers())

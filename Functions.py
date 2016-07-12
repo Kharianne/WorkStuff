@@ -19,6 +19,7 @@ def urlParser():
         return url
 def urlParserVouchers():
     parser = argparse.ArgumentParser(description="Fill in attributes for vouchers")
+    parser.add_argument('--url', action = "store", type = str)
     parser.add_argument('--proc', action="store", type=float, default=33)
     parser.add_argument('--fix', action="store", type=float, default=150)
     parser.add_argument('--kred', action="store", type=float, default=99)
@@ -52,5 +53,3 @@ def itemPrice(class_, tag, soup):
     priceTag = product.find(tag, {"itemprop": "price"}).attrs
     price = float(priceTag['content'])
     return price
-
-print(urlParserVouchers())
